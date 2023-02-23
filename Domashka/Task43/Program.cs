@@ -1,64 +1,33 @@
-﻿Console.Clear();
-Console.Write("Введите числа через запятую: ");
-int[] numbers = StringToNum(Console.ReadLine());
+﻿// Задача 43: Напишите программу, которая найдёт точку пересечения двух прямых, заданных уравнениями y = k1 * x + b1, y = k2 * x + b2; значения b1, k1, b2 и k2 задаются пользователем.
+// b1 = 2, k1 = 5, b2 = 4, k2 = 9 -> (-0,5; -0,5)
 
-PrintArray(numbers);
-int sum = 0;
-for (int i = 0; i < numbers.Length; i++)
+Console.Write("Введите b1: ");
+double b1 = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите b2: ");
+double b2 = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите k1: ");
+double k1 = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите k2: ");
+double k2 = Convert.ToInt32(Console.ReadLine());
+
+CrossingOfLine(b1, b2, k1, k2);
+
+void CrossingOfLine(double b1, double b2, double k1, double k2)
 {
-    if (numbers[i] > 0)
+    if (k1 == k2 && b1 == b2) 
     {
-        sum++;
+        Console.WriteLine("Линии находятся на одной прямой");
+        return;
     }
-}
-Console.WriteLine();
-Console.WriteLine($"количество значений больше 0 = {sum}");
-
-
-int[] StringToNum(string input)
-{
-    int count = 1;
-    for (int i = 0; i < input.Length; i++)
+    else if (k1 == k2) 
     {
-        if (input[i] == ',')
-        {
-            count++;
-        }
+        Console.WriteLine("Линии параллельны");
+        return;
     }
-
-    int[] numbers = new int [count];
-    int index = 0;
-
-    for (int i = 0; i < input.Length; i++)
+    else 
     {
-        string temp = "";
-
-        while (input [i] != ',')
-        {
-        if(i != input.Length - 1)
-        {
-            temp += input [i].ToString();
-            i++;
-        }
-        else
-        {
-            temp += input [i].ToString();
-            break;
-        }
-        }
-        numbers[index] = Convert.ToInt32(temp);
-        index++;
+        double x = (b2 - b1) / (k1 - k2);
+        double y = (k1 * x + b1);
+        Console.Write(x + "; " + y); 
     }
-    return numbers;
-}
-
-
-void PrintArray(int[] array)
-{
-    Console.Write("[ ");
-    for (int i = 0; i < array.Length; i++)
-    {
-        Console.Write(array[i] + " ");
-    }
-    Console.Write("]");
 }
